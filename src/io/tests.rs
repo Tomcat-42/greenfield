@@ -4,7 +4,7 @@ use std::env;
 #[test]
 /// Should convert images between formats
 fn io_image() -> GreenfieldResult<()> {
-    let base_path = env::current_dir()?.join("src").join("io").join("assets");
+    let base_path = env::current_dir()?.join("../../../").join("assets");
 
     // Should load a image on a common format from disk, convert it to a Greenfield image and save
     // it as a png

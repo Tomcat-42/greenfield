@@ -7,7 +7,7 @@ use std::{env, path::PathBuf};
 lazy_static! {
     static ref ASSETS_DIR: PathBuf = {
         let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("benches/assets/");
+        path.push("../assets/");
         path
     };
 }
@@ -26,7 +26,7 @@ fn small_png_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_565.png"),
+                    .join("../assets/lenna_gfd_565.png"),
             )
         })
     });
@@ -42,7 +42,7 @@ fn small_png_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_222.png"),
+                    .join("../assets/lenna_gfd_222.png"),
             )
         })
     });
@@ -58,7 +58,7 @@ fn small_png_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_888.png"),
+                    .join("../assets/lenna_gfd_888.png"),
             )
         })
     });
@@ -77,7 +77,7 @@ fn small_png_gfd_gfd(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_565.gfd"),
+                    .join("../assets/lenna_gfd_565.gfd"),
             )
         })
     });
@@ -93,7 +93,7 @@ fn small_png_gfd_gfd(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_222.gfd"),
+                    .join("../assets/lenna_gfd_222.gfd"),
             )
         })
     });
@@ -109,7 +109,7 @@ fn small_png_gfd_gfd(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_888.gfd"),
+                    .join("../assets/lenna_gfd_888.gfd"),
             )
         })
     });
@@ -128,7 +128,7 @@ fn small_gfd_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_565.png"),
+                    .join("../assets/lenna_gfd_565.png"),
             )
         })
     });
@@ -144,7 +144,7 @@ fn small_gfd_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_222.png"),
+                    .join("../assets/lenna_gfd_222.png"),
             )
         })
     });
@@ -160,7 +160,7 @@ fn small_gfd_gfd_png(c: &mut Criterion) {
             save_image(
                 &gfd_image,
                 &PathBuf::from(env::current_dir().unwrap())
-                    .join("benches/assets/lenna_gfd_888.png"),
+                    .join("../assets/lenna_gfd_888.png"),
             )
         })
     });
@@ -179,7 +179,7 @@ fn big_png_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_565.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_565.png"),
             )
         })
     });
@@ -194,7 +194,7 @@ fn big_png_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_222.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_222.png"),
             )
         })
     });
@@ -209,7 +209,7 @@ fn big_png_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_888.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_888.png"),
             )
         })
     });
@@ -227,7 +227,7 @@ fn big_png_gfd_gfd(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_565.gfd"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_565.gfd"),
             )
         })
     });
@@ -242,7 +242,7 @@ fn big_png_gfd_gfd(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_222.gfd"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_222.gfd"),
             )
         })
     });
@@ -257,7 +257,7 @@ fn big_png_gfd_gfd(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_888.gfd"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_888.gfd"),
             )
         })
     });
@@ -275,7 +275,7 @@ fn big_gfd_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_565.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_565.png"),
             )
         })
     });
@@ -290,7 +290,7 @@ fn big_gfd_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_222.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_222.png"),
             )
         })
     });
@@ -305,7 +305,7 @@ fn big_gfd_gfd_png(c: &mut Criterion) {
 
             save_image(
                 &gfd_image,
-                &PathBuf::from(env::current_dir().unwrap()).join("benches/assets/4k_gfd_888.png"),
+                &PathBuf::from(env::current_dir().unwrap()).join("../assets/4k_gfd_888.png"),
             )
         })
     });
