@@ -72,7 +72,6 @@ mod tests;
 use colored::Colorize;
 use std::fmt::{Display, Formatter};
 
-use crate::error::GreenfieldResult;
 use deku::prelude::*;
 use rand::Rng;
 

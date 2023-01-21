@@ -314,7 +314,6 @@ use crate::error::{GreenfieldError, GreenfieldResult};
 use crate::pixel;
 use deku::bitvec::{BitSlice, BitVec, Msb0};
 use deku::prelude::*;
-use rayon::prelude::ParallelIterator;
 
 /// ## Image structure
 ///
@@ -432,7 +431,7 @@ impl Image {
             true => {
                 // Need to quantify the data first
                 let data = data
-                    .iter()
+                    .into_iter()
                     .map(|c| uniform_quantization.get_quantized_color(&c))
                     .collect::<Vec<color::Rgb>>();
 
