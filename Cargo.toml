@@ -1,5 +1,11 @@
 [package]
 name = "greenfield"
+description = "A library for greenfield images"
+license = "MIT"
+homepage = "https://github.com/Tomcat-42/greenfield"
+repository = "https://github.com/Tomcat-42/greenfield"
+readme = "Readme.md"
+documentation = "https://docs.rs/greenfield"
 version = "0.1.0"
 edition = "2021"
 
