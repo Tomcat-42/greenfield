@@ -1,0 +1,21 @@
+[package]
+name = "greenfield"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bitvec = "1.0.1"
+colored = "2.0.0"
+deku = "0.15.1"
+image = "0.24.5"
+rand = "0.8.5"
+rayon = "1.6.1"
+thiserror = "1.0.38"
+
+[dev-dependencies]
+criterion = { version = "0.4.0", features = ["html_reports"] }
+lazy_static = "1.4.0"
+
+[[bench]]
+name = "greenfield_benches"
+harness = false
