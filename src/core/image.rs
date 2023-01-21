@@ -46,7 +46,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(1, 1, 1)?,
-//!         vec![color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0)],
 //!     )?;
 //!     assert_eq!(image.width, 1);
 //!     assert_eq!(image.height, 1);
@@ -54,7 +54,7 @@
 //!         image.uniform_quantization,
 //!         quantization::UniformQuantization::new(1, 1, 1)?
 //!     );
-//!     assert_eq!(image.data, vec![color::Rgb::new(0, 0, 0)?]);
+//!     assert_eq!(image.data, vec![color::Rgb::new(0, 0, 0)]);
 //!
 //!     // You can specify a width and height of 0, as long as the data is empty.
 //!     let image = Image::new(
@@ -79,7 +79,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(1, 1, 1)?,
-//!         vec![color::Rgb::new(0, 0, 0)?, color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0), color::Rgb::new(0, 0, 0)],
 //!     );
 //!     assert!(image.is_err());
 //!
@@ -93,7 +93,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(8, 8, 8)?,
-//!         vec![color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0)],
 //!     )?;
 //!     let serialized = image.serialize()?;
 //!     let expected = vec![
@@ -116,7 +116,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(8, 8, 8)?,
-//!         vec![color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0)],
 //!     )?;
 //!     assert_eq!(image, expected);
 //!
@@ -151,7 +151,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(8, 8, 8)?,
-//!         vec![color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0)],
 //!     )?;
 //!     let serialized = image.clone().serialize()?;
 //!     let deserialized = Image::deserialize(&serialized)?;
@@ -167,7 +167,7 @@
 //!         1,
 //!         1,
 //!         quantization::UniformQuantization::new(8, 8, 8)?,
-//!         vec![color::Rgb::new(0, 0, 0)?],
+//!         vec![color::Rgb::new(0, 0, 0)],
 //!     )?;
 //!
 //!     let base_path = env::current_dir()?.join("src").join("core").join("image");
@@ -248,7 +248,7 @@
 //!     )?;
 //!
 //!     // 🤷
-//!     let iter = image.pixels()?.collect::<Vec<pixel::Pixel>>();
+//!     let iter = image.pixels().collect::<Vec<pixel::Pixel>>();
 //!     assert_eq!(iter.len(), 100);
 //!
 //!     Ok(())
@@ -340,18 +340,38 @@ pub struct Image {
 }
 
 impl Display for Image {
+    /// ## Formats the image as a string
+    /// The format is `[width]x[height] [quantization] [colors]`
+    ///
+    /// ## Examples
+    /// ```rust
+    /// #[test]
+    /// /// Should display an image
+    /// fn image_display() -> GreenfieldResult<()> {
+    ///     let image = Image::new(
+    ///         2,
+    ///         2,
+    ///         quantization::UniformQuantization::new(8, 8, 8)?,
+    ///         vec![
+    ///             color::Rgb::random(),
+    ///             color::Rgb::random(),
+    ///             color::Rgb::random(),
+    ///             color::Rgb::random(),
+    ///         ],
+    ///     )?;
+    ///     println!("{}", image);
+    ///
+    ///     Ok(())
+    /// }
+    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "[{}x{}] {} [{}]",
+            "[{}x{}] {} {}x[RGB]",
             self.width,
             self.height,
             self.uniform_quantization,
-            self.data
-                .iter()
-                .map(|c| c.to_string())
-                .collect::<Vec<String>>()
-                .join(", ")
+            self.data.len()
         )
     }
 }
@@ -368,8 +388,6 @@ impl Image {
     ///
     /// ## Examples
     /// ```rust
-    /// use greenfield::prelude::*;
-    ///
     /// #[test]
     /// /// Should create a new image
     /// fn image_new() -> GreenfieldResult<()> {
@@ -378,7 +396,7 @@ impl Image {
     ///         1,
     ///         1,
     ///         quantization::UniformQuantization::new(1, 1, 1)?,
-    ///         vec![color::Rgb::new(0, 0, 0)?],
+    ///         vec![color::Rgb::new(0, 0, 0)],
     ///     )?;
     ///     assert_eq!(image.width, 1);
     ///     assert_eq!(image.height, 1);
@@ -386,7 +404,7 @@ impl Image {
     ///         image.uniform_quantization,
     ///         quantization::UniformQuantization::new(1, 1, 1)?
     ///     );
-    ///     assert_eq!(image.data, vec![color::Rgb::new(0, 0, 0)?]);
+    ///     assert_eq!(image.data, vec![color::Rgb::new(0, 0, 0)]);
     ///
     ///     // You can specify a width and height of 0, as long as the data is empty.
     ///     let image = Image::new(
@@ -411,7 +429,7 @@ impl Image {
     ///         1,
     ///         1,
     ///         quantization::UniformQuantization::new(1, 1, 1)?,
-    ///         vec![color::Rgb::new(0, 0, 0)?, color::Rgb::new(0, 0, 0)?],
+    ///         vec![color::Rgb::new(0, 0, 0), color::Rgb::new(0, 0, 0)],
     ///     );
     ///     assert!(image.is_err());
     ///
@@ -453,8 +471,6 @@ impl Image {
     /// Should serialize a image.
     ///
     /// ```rust
-    /// use greenfield::prelude::*;
-    ///
     /// #[test]
     /// /// Shoud serialize an image
     /// fn image_serialize() -> GreenfieldResult<()> {
@@ -462,7 +478,7 @@ impl Image {
     ///         1,
     ///         1,
     ///         quantization::UniformQuantization::new(8, 8, 8)?,
-    ///         vec![color::Rgb::new(0, 0, 0)?],
+    ///         vec![color::Rgb::new(0, 0, 0)],
     ///     )?;
     ///     let serialized = image.serialize()?;
     ///     let expected = vec![
@@ -488,8 +504,6 @@ impl Image {
     /// Should deserialize an image
     ///
     /// ```rust
-    /// use greenfield::prelude::*;
-    ///
     /// #[test]
     /// /// Should deserialize an image
     /// fn image_deserialize() -> GreenfieldResult<()> {
@@ -502,7 +516,7 @@ impl Image {
     ///         1,
     ///         1,
     ///         quantization::UniformQuantization::new(8, 8, 8)?,
-    ///         vec![color::Rgb::new(0, 0, 0)?],
+    ///         vec![color::Rgb::new(0, 0, 0)],
     ///     )?;
     ///     assert_eq!(image, expected);
     ///
@@ -553,7 +567,7 @@ impl Image {
     ///         1,
     ///         1,
     ///         quantization::UniformQuantization::new(8, 8, 8)?,
-    ///         vec![color::Rgb::new(0, 0, 0)?],
+    ///         vec![color::Rgb::new(0, 0, 0)],
     ///     )?;
     ///
     ///     let base_path = env::current_dir()?.join("src").join("core").join("image");
@@ -672,7 +686,6 @@ impl Image {
     /// ## Examples
     ///
     /// ```rust
-    ///
     /// #[test]
     /// /// Should correctly iterate over the image as colors
     /// fn image_colors() -> GreenfieldResult<()> {
@@ -697,7 +710,6 @@ impl Image {
     ///
     /// ## Examples
     /// ```rust
-    ///
     /// #[test]
     /// /// Should correctly into iterate over the image as pixels
     /// fn image_pixels() -> GreenfieldResult<()> {
@@ -709,7 +721,7 @@ impl Image {
     ///     )?;
     ///
     ///     // 🤷
-    ///     let iter = image.pixels()?.collect::<Vec<pixel::Pixel>>();
+    ///     let iter = image.pixels().collect::<Vec<pixel::Pixel>>();
     ///     assert_eq!(iter.len(), 100);
     ///
     ///     Ok(())

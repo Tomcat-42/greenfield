@@ -5,24 +5,38 @@
 //! ## Examples
 //!
 //! ```rust
-//! use greenfield::prelude::*;
-//!
 //! #[test]
 //! /// Should create a new pixel
-//! fn test_pixel_new() -> GreenfieldResult<()> {
-//!     let color = color::Rgb::new(0, 0, 0)?;
-//!     let pixel = Pixel::new(0, 0, color)?;
+//! fn pixel_new() {
+//!     let color = color::Rgb::new(0, 0, 0);
+//!     let pixel = Pixel::new(0, 0, &color);
 //!
 //!     let Pixel { x, y, color } = pixel;
 //!     let color::Rgb { r, g, b } = color;
 //!
 //!     assert_eq!(x, 0);
 //!     assert_eq!(y, 0);
-//!     assert_eq!(r, 0);
-//!     assert_eq!(g, 0);
-//!     assert_eq!(b, 0);
+//!     assert_eq!(*r, 0);
+//!     assert_eq!(*g, 0);
+//!     assert_eq!(*b, 0);
+//! }
 //!
-//!     Ok(())
+//! #[test]
+//! /// Should Display a pixel
+//! fn pixel_display() {
+//!     let color = color::Rgb::random();
+//!     let pixel = Pixel::new(0, 0, &color);
+//!
+//!     println!("{}", pixel);
+//! }
+//!
+//! #[test]
+//! /// Should debug a pixel
+//! fn pixel_debug() {
+//!     let color = color::Rgb::random();
+//!     let pixel = Pixel::new(0, 0, &color);
+//!
+//!     println!("{:?}", pixel);
 //! }
 //! ```
 
@@ -50,24 +64,20 @@ impl<'a> Pixel<'a> {
     /// ## Examples
     ///
     /// ```
-    /// use greenfield::prelude::*;
-    ///
     /// #[test]
     /// /// Should create a new pixel
-    /// fn test_pixel_new() -> GreenfieldResult<()> {
-    ///     let color = color::Rgb::new(0, 0, 0)?;
-    ///     let pixel = Pixel::new(0, 0, color)?;
+    /// fn pixel_new() {
+    ///     let color = color::Rgb::new(0, 0, 0);
+    ///     let pixel = Pixel::new(0, 0, &color);
     ///
     ///     let Pixel { x, y, color } = pixel;
     ///     let color::Rgb { r, g, b } = color;
     ///
     ///     assert_eq!(x, 0);
     ///     assert_eq!(y, 0);
-    ///     assert_eq!(r, 0);
-    ///     assert_eq!(g, 0);
-    ///     assert_eq!(b, 0);
-    ///
-    ///     Ok(())
+    ///     assert_eq!(*r, 0);
+    ///     assert_eq!(*g, 0);
+    ///     assert_eq!(*b, 0);
     /// }
     /// ```
     pub fn new(x: usize, y: usize, color: &'a color::Rgb) -> Self {
@@ -76,6 +86,20 @@ impl<'a> Pixel<'a> {
 }
 
 impl<'a> Display for Pixel<'a> {
+    /// ## Display a pixel
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// #[test]
+    /// /// Should Display a pixel
+    /// fn pixel_display() {
+    ///     let color = color::Rgb::random();
+    ///     let pixel = Pixel::new(0, 0, &color);
+    ///
+    ///     println!("{}", pixel);
+    /// }
+    /// ```
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let Self { x, y, color } = self;
         let color::Rgb { r, g, b } = color;

@@ -1,9 +1,8 @@
 use super::*;
-use crate::prelude::*;
 
 #[test]
 /// Should create a new pixel
-fn pixel_new() -> GreenfieldResult<()> {
+fn pixel_new() {
     let color = color::Rgb::new(0, 0, 0);
     let pixel = Pixel::new(0, 0, &color);
 
@@ -15,28 +14,22 @@ fn pixel_new() -> GreenfieldResult<()> {
     assert_eq!(*r, 0);
     assert_eq!(*g, 0);
     assert_eq!(*b, 0);
-
-    Ok(())
 }
 
 #[test]
 /// Should Display a pixel
-fn pixel_display() -> GreenfieldResult<()> {
+fn pixel_display() {
     let color = color::Rgb::random();
     let pixel = Pixel::new(0, 0, &color);
 
     println!("{}", pixel);
-
-    Ok(())
 }
 
 #[test]
 /// Should debug a pixel
-fn pixel_debug() -> GreenfieldResult<()> {
+fn pixel_debug() {
     let color = color::Rgb::random();
     let pixel = Pixel::new(0, 0, &color);
 
     println!("{:?}", pixel);
-
-    Ok(())
 }

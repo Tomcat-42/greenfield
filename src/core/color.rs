@@ -10,59 +10,51 @@
 //!
 //! ```
 //! use greenfield::prelude::*;
+//!
 //! #[test]
 //! /// Should create a new RGB color
-//! fn color_rgb_new() -> GreenfieldResult<()> {
-//!     let color = Rgb::new(200, 150, 10)?;
+//! fn color_rgb_new() {
+//!     let color = Rgb::new(200, 150, 10);
 //!     let Rgb { r, g, b } = color;
 //!
 //!     assert_eq!(r, 200);
 //!     assert_eq!(g, 150);
 //!     assert_eq!(b, 10);
-//!
-//!     Ok(())
 //! }
 //!
 //! #[test]
 //! /// Should create a new default RGB color
-//! fn color_rgb_default() -> GreenfieldResult<()> {
+//! fn color_rgb_default() {
 //!     let color = Rgb::default();
 //!     let Rgb { r, g, b } = color;
 //!
 //!     assert_eq!(r, 0);
 //!     assert_eq!(g, 0);
 //!     assert_eq!(b, 0);
-//!
-//!     Ok(())
 //! }
 //!
 //! #[test]
 //! /// Should create a new random RGB color
-//! fn color_rgb_random() -> GreenfieldResult<()> {
+//! fn color_rgb_random() {
 //!     let _color = Rgb::random();
-//!     Ok(())
 //! }
 //!
 //! #[test]
 //! /// Should Display a RGB color
-//! fn color_rgb_display() -> GreenfieldResult<()> {
+//! fn color_rgb_display() {
 //!     let color = Rgb::random();
 //!     println!("{}", color);
-//!
-//!     Ok(())
 //! }
 //!
 //! #[test]
 //! /// Should return a RGB color as a tuple of bytes
-//! fn color_rgb_bytes() -> GreenfieldResult<()> {
-//!     let color = Rgb::new(200, 150, 10)?;
+//! fn color_rgb_bytes() {
+//!     let color = Rgb::new(200, 150, 10);
 //!     let [r, g, b] = color.bytes();
 //!
 //!     assert_eq!(r, 200);
 //!     assert_eq!(g, 150);
 //!     assert_eq!(b, 10);
-//!
-//!     Ok(())
 //! }
 //! ```
 
@@ -104,17 +96,15 @@ impl Rgb {
     ///
     /// #[test]
     /// /// Should create a new RGB color
-    /// fn color_rgb_new() -> GreenfieldResult<()> {
-    ///     let color = Rgb::new(200, 150, 10)?;
+    /// fn color_rgb_new() {
+    ///     let color = Rgb::new(200, 150, 10);
     ///     let Rgb { r, g, b } = color;
     ///
     ///     assert_eq!(r, 200);
     ///     assert_eq!(g, 150);
     ///     assert_eq!(b, 10);
-    ///
-    ///     Ok(())
     /// }
-    ///
+    /// ````
     pub fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
     }
@@ -124,12 +114,11 @@ impl Rgb {
     /// ## Examples
     ///
     /// ```rust
-    ///  #[test]
-    ///  /// Should create a new random RGB color
-    ///  fn color_rgb_random() -> GreenfieldResult<()> {
-    ///      let _color = Rgb::random();
-    ///      Ok(())
-    ///  }
+    /// #[test]
+    /// /// Should create a new random RGB color
+    /// fn color_rgb_random() {
+    ///     let _color = Rgb::random();
+    /// }
     ///  ```
     pub fn random() -> Self {
         let (r, g, b) = rand::thread_rng().gen::<(u8, u8, u8)>();
@@ -141,18 +130,18 @@ impl Rgb {
     /// ## Examples
     ///
     /// ```rust
-    // #[test]
-    // /// Should return a RGB color as a tuple of bytes
-    // fn color_rgb_bytes() -> GreenfieldResult<()> {
-    //     let color = Rgb::new(200, 150, 10)?;
-    //     let [r, g, b] = color.bytes();
-    //
-    //     assert_eq!(r, 200);
-    //     assert_eq!(g, 150);
-    //     assert_eq!(b, 10);
-    //
-    //     Ok(())
-    // }
+    /// use greenfield::prelude::*;
+    /// #[test]
+    /// /// Should return a RGB color as a tuple of bytes
+    /// fn color_rgb_bytes() {
+    ///     let color = Rgb::new(200, 150, 10);
+    ///     let [r, g, b] = color.bytes();
+    ///
+    ///     assert_eq!(r, 200);
+    ///     assert_eq!(g, 150);
+    ///     assert_eq!(b, 10);
+    /// }
+    /// ````
     pub fn bytes(&self) -> [u8; 3] {
         [self.r, self.g, self.b]
     }
@@ -162,6 +151,17 @@ impl Display for Rgb {
     /// ## Formats the color as a string.
     ///
     /// Return a hex string with the color components.
+    ///
+    /// ## Examples
+    /// ```rust
+    ///
+    /// #[test]
+    /// /// Should Display a RGB color
+    /// fn color_rgb_display() {
+    ///     let color = Rgb::random();
+    ///     println!("{}", color);
+    /// }
+    /// ```
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let Self { r, g, b } = *self;
         let hex_color = format!("#{:02x}{:02x}{:02x}", r, g, b);
@@ -179,15 +179,13 @@ impl Default for Rgb {
     /// ```rust
     /// #[test]
     /// /// Should create a new default RGB color
-    /// fn color_rgb_default() -> GreenfieldResult<()> {
+    /// fn color_rgb_default() {
     ///     let color = Rgb::default();
     ///     let Rgb { r, g, b } = color;
     ///
     ///     assert_eq!(r, 0);
     ///     assert_eq!(g, 0);
     ///     assert_eq!(b, 0);
-    ///
-    ///     Ok(())
     /// }
     /// ```
     fn default() -> Self {

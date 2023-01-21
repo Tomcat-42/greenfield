@@ -241,14 +241,6 @@ fn quantization_decompress() -> GreenfieldResult<()> {
     let expected = vec![color::Rgb::new(224, 224, 224)];
     assert_eq!(decompressed, expected);
 
-    // let the world know that we are done
-    // let mut compressed = Box::new(BitVec::<u8, Msb0>::new());
-    // compressed.resize(1920 * 1080 * 8 * 3, true);
-    // let quantization = UniformQuantization::new(8, 8, 8)?;
-    // let decompressed = quantization.decompress(&compressed)?;
-    // let expected = vec![color::Rgb::new(255, 255, 255)?; 1920 * 1080];
-    // assert_eq!(decompressed, expected);
-
     Ok(())
 }
 
@@ -279,14 +271,6 @@ fn quantization_compress() -> GreenfieldResult<()> {
     let compressed = quantization.compress(&colors);
     let expected = bitvec::bits![u8, Msb0; 1,1,1,1,1,1];
     assert_eq!(compressed, expected);
-
-    // let the world know that we are done
-    // let colors = vec![color::Rgb::new(255, 255, 255)?; 1920 * 1080];
-    // let quantization = UniformQuantization::new(8, 8, 8)?;
-    // let compressed = quantization.compress(&colors)?;
-    // let mut expected = Box::new(BitVec::<u8, Msb0>::new());
-    // expected.resize(1920 * 1080 * 8 * 3, true);
-    // assert_eq!(compressed, *expected);
 
     Ok(())
 }
