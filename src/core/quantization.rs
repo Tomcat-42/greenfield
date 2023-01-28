@@ -500,7 +500,7 @@ impl UniformQuantization {
                 bits_r,
                 bits_g,
                 bits_b,
-            } => color::Rgb::new(r >> (8 - bits_r), g >> (8 - bits_g), b >> 8 - bits_b),
+            } => color::Rgb::new(r >> 8 - bits_r, g >> 8 - bits_g, b >> 8 - bits_b),
         }
     }
 

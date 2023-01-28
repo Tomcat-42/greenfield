@@ -447,11 +447,11 @@ impl Image {
 
         match size == data_len {
             true => {
-                // Need to quantify the data first
                 let data = data
-                    .into_iter()
-                    .map(|c| uniform_quantization.get_quantized_color(&c))
-                    .collect::<Vec<color::Rgb>>();
+                    .iter()
+                    .map(|c| uniform_quantization.get_quantized_color(c))
+                    .map(|c| uniform_quantization.get_dequantized_color(&c))
+                    .collect();
 
                 Ok(Self {
                     width,
@@ -460,8 +460,37 @@ impl Image {
                     data,
                 })
             }
+
             false => Err(GreenfieldError::InvalidImageDimension(data_len, size)),
         }
+    }
+
+    pub fn quantify(&mut self) -> GreenfieldResult<()> {
+        self.data.iter_mut().for_each(|c| {
+            self.uniform_quantization.quantify_color(c);
+        });
+
+        Ok(())
+    }
+
+    pub fn get_quantized(&self) -> GreenfieldResult<Self> {
+        let mut image = self.clone();
+        image.quantify()?;
+        Ok(image)
+    }
+
+    pub fn dequantify(&mut self) -> GreenfieldResult<()> {
+        self.data.iter_mut().for_each(|c| {
+            self.uniform_quantization.dequantify_color(c);
+        });
+
+        Ok(())
+    }
+
+    pub fn get_dequantized(&self) -> GreenfieldResult<Self> {
+        let mut image = self.clone();
+        image.dequantify()?;
+        Ok(image)
     }
 
     /// ## Transforms the image into a raw byte vector.
@@ -774,17 +803,12 @@ impl Image {
             bits_b,
         } = uniform_quantization;
         let bits = (bits_r + bits_g + bits_b) as usize; // Number of bits per color
-        let count: usize = (*width as usize) * (*height as usize); // Expected number of colors
-        let data_len = rest.len() / bits as usize; // Actual number of colors
+        let count: usize = (*width as usize) * (*height as usize) * bits; // Expected number of bits
+        // let data_len = rest.len(); // Actual number of bits
 
-        match count == data_len {
-            true => {
-                let colors = uniform_quantization.decompress(rest);
-                let rest = BitSlice::<u8, Msb0>::empty();
-                Ok((rest, colors))
-            }
-            false => Err(GreenfieldError::InvalidImageDimension(data_len, count)),
-        }
+        let colors = uniform_quantization.decompress(&rest[..count]);
+        let rest = BitSlice::<u8, Msb0>::empty();
+        Ok((rest, colors))
     }
 
     /// ## Custom writer for the data field.
