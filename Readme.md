@@ -139,7 +139,7 @@ Lenna image quantized to 5 6 5 bits.
 <p align="center">
   <img  src="https://user-images.githubusercontent.com/44649669/213846678-7d655eb4-2f45-431c-9eac-5a2bebd507bc.png" width="25%">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/44649669/213846681-1e603020-b853-442a-8d05-d653e3cad7bf.png" width="25%">
+  <img src="https://user-images.githubusercontent.com/44649669/215276748-2a45cfdb-d4e7-4adb-a015-49fc576cc244.png" width="25%">
 </p>
 
 ### Serialization/Deserialization
